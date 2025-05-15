@@ -13,7 +13,10 @@ function generateGrid() {
     square.style.height = `${squareSize}%`;
 
     square.addEventListener('mouseenter', () => {
-      square.classList.add('hovered');
+      square.style.backgroundColor = getRandomColor();
+      let currentOpacity = parseFloat(square.style.opacity) || 0;
+      currentOpacity = Math.min(currentOpacity + 0.1, 1);
+      square.style.opacity = currentOpacity;
     });
 
     container.appendChild(square);
@@ -23,5 +26,14 @@ function generateGrid() {
 button.addEventListener("click", () => {
   generateGrid();
 })
+
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
 generateGrid();
